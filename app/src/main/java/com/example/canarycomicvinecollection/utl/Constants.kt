@@ -20,6 +20,8 @@ class Constants{
         const val PATH = "$API_KEY_HEADER&$API_FORMAT_HEADER&$API_FILTER&$API_SORT&$API_OFFSET&$API_LIMIT"
         const val VOLUMES_END_POINT = "api/volumes?$PATH"
         const val ISSUES_END_POINT = "api/issues?$PATH"
+        const val ISSUE_END_POINT = "api/issue?$PATH"
+        const val VOLUME_END_POINT = "api/volume?$PATH"
 
         const val SEARCH_QUERY = "filter"
     }

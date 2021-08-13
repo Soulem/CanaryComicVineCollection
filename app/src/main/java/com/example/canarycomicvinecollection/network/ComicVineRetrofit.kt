@@ -9,20 +9,47 @@ import com.example.canarycomicvinecollection.utl.Constants.Companion.COMIC_VINE_
 import com.example.canarycomicvinecollection.utl.Constants.Companion.COMIC_VINE_API_SORT
 import com.example.canarycomicvinecollection.utl.Constants.Companion.COMIC_VINE_BASE_URL
 import com.example.canarycomicvinecollection.utl.Constants.Companion.ISSUES_END_POINT
+import com.example.canarycomicvinecollection.utl.Constants.Companion.VOLUMES_END_POINT
+import com.example.canarycomicvinecollection.utl.api_key_delete.Companion.KEY
 import io.reactivex.Single
-import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
+import javax.inject.Inject
+import javax.inject.Named
+import javax.inject.Singleton
 
-
-class ComicVineRetrofit(private val apiKey : String) {
+@Singleton
+class ComicVineRetrofit @Inject constructor(@JvmField @field:[Inject Named("apiKey")] val apiKey : String = KEY) {
     interface ComicVineAPIService{
         @GET(ISSUES_END_POINT)
         fun getNewIssues(@Query(COMIC_VINE_API_FILTER) filter : String,
+                         @Query(COMIC_VINE_API_KEY) apikey : String,
+                         @Query(COMIC_VINE_API_FORMAT) format : String,
+                         @Query(COMIC_VINE_API_SORT) sort : String,
+                         @Query(COMIC_VINE_API_OFFSET) offset : String,
+                         @Query(COMIC_VINE_API_LIMIT) limit : String) : Single<ComicVineResults>
+        @GET("{endPoint}")
+        fun getNewIssue(@Path("endPoint") endPoint : String,
+                         @Query(COMIC_VINE_API_FILTER) filter : String,
+                         @Query(COMIC_VINE_API_KEY) apikey : String,
+                         @Query(COMIC_VINE_API_FORMAT) format : String,
+                         @Query(COMIC_VINE_API_SORT) sort : String,
+                         @Query(COMIC_VINE_API_OFFSET) offset : String,
+                         @Query(COMIC_VINE_API_LIMIT) limit : String) : Single<ComicVineResults>
+        @GET(VOLUMES_END_POINT)
+        fun getNewVolumes(@Query(COMIC_VINE_API_FILTER) filter : String,
+                         @Query(COMIC_VINE_API_KEY) apikey : String,
+                         @Query(COMIC_VINE_API_FORMAT) format : String,
+                         @Query(COMIC_VINE_API_SORT) sort : String,
+                         @Query(COMIC_VINE_API_OFFSET) offset : String,
+                         @Query(COMIC_VINE_API_LIMIT) limit : String) : Single<ComicVineResults>
+        @GET("{endPoint}")
+        fun getNewVolume(@Path("endPoint") endPoint : String,
+                         @Query(COMIC_VINE_API_FILTER) filter : String,
                          @Query(COMIC_VINE_API_KEY) apikey : String,
                          @Query(COMIC_VINE_API_FORMAT) format : String,
                          @Query(COMIC_VINE_API_SORT) sort : String,
@@ -38,4 +65,8 @@ class ComicVineRetrofit(private val apiKey : String) {
         .create(ComicVineAPIService::class.java)
 
     fun getNewIssues(filter: String, offset:String="0", limit:String="100", sort:String="store_date:desc"):Single<ComicVineResults> = cvAPIService.getNewIssues(filter, apiKey, "json", sort, offset, limit)
+    fun getNewIssue(endPoint:String, filter: String, offset:String="0", limit:String="100", sort:String="store_date:desc"):Single<ComicVineResults> = cvAPIService.getNewIssue(endPoint, filter, apiKey, "json", sort, offset, limit)
+    fun getNewVolumes(filter: String, offset:String="0", limit:String="100", sort:String="store_date:desc"):Single<ComicVineResults> = cvAPIService.getNewVolumes(filter, apiKey, "json", sort, offset, limit)
+    fun getNewVolume(endPoint:String, filter: String, offset:String="0", limit:String="100", sort:String="store_date:desc"):Single<ComicVineResults> = cvAPIService.getNewVolume(endPoint, filter, apiKey, "json", sort, offset, limit)
+
 }
