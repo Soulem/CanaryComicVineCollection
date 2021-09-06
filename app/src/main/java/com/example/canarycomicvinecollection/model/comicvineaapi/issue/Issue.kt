@@ -1,8 +1,7 @@
 package com.example.canarycomicvinecollection.model.data.comicvineaapi.issue
 
 import com.example.canarycomicvinecollection.model.data.comicvineaapi.Result
-import kotlinx.android.parcel.Parcelize
-import kotlinx.android.parcel.RawValue
+import kotlinx.parcelize.RawValue
 
 data class Issue(
     val aliases: @RawValue Any,

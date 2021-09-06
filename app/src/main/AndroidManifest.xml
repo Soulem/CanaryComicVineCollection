@@ -16,7 +16,7 @@
             android:name=".view.activity.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.CanaryComicVineCollection">
+            android:theme="@style/Theme.CanaryComicVineCollection.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

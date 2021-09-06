@@ -1,7 +1,7 @@
 package com.example.canarycomicvinecollection.model.data.comicvineaapi.issue
 
 import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Volume(

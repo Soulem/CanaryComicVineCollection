@@ -2,7 +2,7 @@ package com.example.canarycomicvinecollection.model.data.comicvineaapi
 
 import android.os.Parcelable
 import com.example.canarycomicvinecollection.model.data.comicvineaapi.issues.Issues
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class ComicVineResults(

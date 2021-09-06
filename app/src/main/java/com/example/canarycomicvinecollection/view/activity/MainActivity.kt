@@ -14,11 +14,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.canarycomicvinecollection.network.ComicVineRetrofit
 import com.example.canarycomicvinecollection.ui.theme.CanaryComicVineCollectionTheme
 import com.example.canarycomicvinecollection.utl.api_key_delete.Companion.KEY
+import com.example.canarycomicvinecollection.viewmodel.ObjectViewModel
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.disposables.CompositeDisposable
 
 class MainActivity : ComponentActivity() {
     private val compDisposable = CompositeDisposable()
+    private val objectViewModel = ObjectViewModel.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,22 +36,8 @@ class MainActivity : ComponentActivity() {
             }
         }
 
-        val comicVineRetrofit = ComicVineRetrofit(KEY)
-        compDisposable.add(
-            comicVineRetrofit.getNewIssues("store_date:2021-07-21|2021-07-28")
-                .observeOn(Schedulers.io())
-                .subscribeOn(Schedulers.io())
-                .map{
-                    it
-                }
-                .subscribe({
-                    Log.d("TAG_X", "results: ${it}" )
+        objectViewModel.searchIssues("store_date:2021-08-29|2021-09-4",);
 
-                }, {throwable ->
-                    Log.d("TAG_X", "Oops: ${throwable.localizedMessage}")
-
-                })
-        )
     }
 
     override fun onDestroy() {
