@@ -1,8 +1,10 @@
 package com.example.canarycomicvinecollection.view.screen
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.GridCells
+import androidx.compose.foundation.lazy.LazyVerticalGrid
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -11,24 +13,25 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.semantics.SemanticsProperties.Text
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
 import coil.transform.RoundedCornersTransformation
 import com.example.canarycomicvinecollection.model.data.comicvineaapi.issues.Issues
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun thisWeekScreen(issues: List<Issues>){
-    LazyColumn(
-        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
-    ){
+    LazyVerticalGrid(
+        cells = GridCells.Adaptive(128.dp),
+        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
+        content = {
         items(
             items = issues,
             itemContent = {
                 thisWeekListItem(issue = it)
             }
         )
-    }
+    })
 }
 
 @Composable
