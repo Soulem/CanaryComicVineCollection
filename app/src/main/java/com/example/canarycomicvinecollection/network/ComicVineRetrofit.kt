@@ -1,6 +1,9 @@
 package com.example.canarycomicvinecollection.network
 
-import com.example.canarycomicvinecollection.model.data.comicvineaapi.ComicVineResults
+import com.example.canarycomicvinecollection.model.comicvineaapi.issue.ComicVineIssueResults
+import com.example.canarycomicvinecollection.model.comicvineaapi.issues.ComicVineIssuesResults
+import com.example.canarycomicvinecollection.model.comicvineaapi.volume.ComicVineVolumeResults
+import com.example.canarycomicvinecollection.model.comicvineaapi.volumes.ComicVineVolumesResults
 import com.example.canarycomicvinecollection.utl.Constants.Companion.COMIC_VINE_API_FILTER
 import com.example.canarycomicvinecollection.utl.Constants.Companion.COMIC_VINE_API_FORMAT
 import com.example.canarycomicvinecollection.utl.Constants.Companion.COMIC_VINE_API_KEY
@@ -26,7 +29,7 @@ class ComicVineRetrofit () {
                          @Query(COMIC_VINE_API_FORMAT) format : String,
                          @Query(COMIC_VINE_API_SORT) sort : String,
                          @Query(COMIC_VINE_API_OFFSET) offset : String,
-                         @Query(COMIC_VINE_API_LIMIT) limit : String) : Single<ComicVineResults>
+                         @Query(COMIC_VINE_API_LIMIT) limit : String) : Single<ComicVineIssuesResults>
         @GET("{endPoint}")
         fun getNewIssue(@Path("endPoint") endPoint : String,
                          @Query(COMIC_VINE_API_FILTER) filter : String,
@@ -34,14 +37,14 @@ class ComicVineRetrofit () {
                          @Query(COMIC_VINE_API_FORMAT) format : String,
                          @Query(COMIC_VINE_API_SORT) sort : String,
                          @Query(COMIC_VINE_API_OFFSET) offset : String,
-                         @Query(COMIC_VINE_API_LIMIT) limit : String) : Single<ComicVineResults>
+                         @Query(COMIC_VINE_API_LIMIT) limit : String) : Single<ComicVineIssueResults>
         @GET(VOLUMES_END_POINT)
         fun getNewVolumes(@Query(COMIC_VINE_API_FILTER) filter : String,
                          @Query(COMIC_VINE_API_KEY) apikey : String,
                          @Query(COMIC_VINE_API_FORMAT) format : String,
                          @Query(COMIC_VINE_API_SORT) sort : String,
                          @Query(COMIC_VINE_API_OFFSET) offset : String,
-                         @Query(COMIC_VINE_API_LIMIT) limit : String) : Single<ComicVineResults>
+                         @Query(COMIC_VINE_API_LIMIT) limit : String) : Single<ComicVineVolumesResults>
         @GET("{endPoint}")
         fun getNewVolume(@Path("endPoint") endPoint : String,
                          @Query(COMIC_VINE_API_FILTER) filter : String,
@@ -49,7 +52,7 @@ class ComicVineRetrofit () {
                          @Query(COMIC_VINE_API_FORMAT) format : String,
                          @Query(COMIC_VINE_API_SORT) sort : String,
                          @Query(COMIC_VINE_API_OFFSET) offset : String,
-                         @Query(COMIC_VINE_API_LIMIT) limit : String) : Single<ComicVineResults>
+                         @Query(COMIC_VINE_API_LIMIT) limit : String) : Single<ComicVineVolumeResults>
     }
 
     companion object {
@@ -71,9 +74,9 @@ class ComicVineRetrofit () {
         .build()
         .create(ComicVineAPIService::class.java)
 
-    fun getNewIssues(filter: String, apiKey: String, offset:String="0", limit:String="100", sort:String="store_date:desc"):Single<ComicVineResults> = cvAPIService.getNewIssues(filter, apiKey, "json", sort, offset, limit)
-    fun getNewIssue(endPoint:String, filter: String, apiKey: String, offset:String="0", limit:String="100", sort:String="store_date:desc"):Single<ComicVineResults> = cvAPIService.getNewIssue(endPoint, filter, apiKey, "json", sort, offset, limit)
-    fun getNewVolumes(filter: String, apiKey: String, offset:String="0", limit:String="100", sort:String="store_date:desc"):Single<ComicVineResults> = cvAPIService.getNewVolumes(filter, apiKey, "json", sort, offset, limit)
-    fun getNewVolume(endPoint:String, apiKey: String, filter: String, offset:String="0", limit:String="100", sort:String="store_date:desc"):Single<ComicVineResults> = cvAPIService.getNewVolume(endPoint, filter, apiKey, "json", sort, offset, limit)
+    fun getNewIssues(filter: String, apiKey: String, offset:String="0", limit:String="100", sort:String="store_date:desc"):Single<ComicVineIssuesResults> = cvAPIService.getNewIssues(filter, apiKey, "json", sort, offset, limit)
+    fun getNewIssue(endPoint:String, filter: String, apiKey: String, offset:String="0", limit:String="100", sort:String="store_date:desc"):Single<ComicVineIssueResults> = cvAPIService.getNewIssue(endPoint, filter, apiKey, "json", sort, offset, limit)
+    fun getNewVolumes(filter: String, apiKey: String, offset:String="0", limit:String="100", sort:String="store_date:desc"):Single<ComicVineVolumesResults> = cvAPIService.getNewVolumes(filter, apiKey, "json", sort, offset, limit)
+    fun getNewVolume(endPoint:String, apiKey: String, filter: String, offset:String="0", limit:String="100", sort:String="store_date:desc"):Single<ComicVineVolumeResults> = cvAPIService.getNewVolume(endPoint, filter, apiKey, "json", sort, offset, limit)
 
 }

@@ -1,9 +1,10 @@
 package com.example.canarycomicvinecollection.model.data.comicvineaapi.volume
 
-import com.example.canarycomicvinecollection.model.data.comicvineaapi.Result
-import kotlinx.android.parcel.Parcelize
+import android.os.Parcelable
 import kotlinx.android.parcel.RawValue
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class Volume(
     val aliases: String,
     val api_detail_url: String,
@@ -25,4 +26,4 @@ data class Volume(
     val publisher: Publisher,
     val site_detail_url: String,
     val start_year: String
-):Result()
+): Parcelable

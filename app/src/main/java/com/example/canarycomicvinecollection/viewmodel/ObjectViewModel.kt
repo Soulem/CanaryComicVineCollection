@@ -1,6 +1,8 @@
 package com.example.canarycomicvinecollection.viewmodel
 
 import android.util.Log
+import androidx.compose.runtime.Composable
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.canarycomicvinecollection.model.data.comicvineaapi.issue.Issue
@@ -25,19 +27,35 @@ class ObjectViewModel : ViewModel() {
         }
     }
 
-    val comicVineIssues = MutableLiveData<List<Issues>>()
-    val comicVineIssue = MutableLiveData<List<Issue>>()
-    val comicVineVolumes = MutableLiveData<List<Volumes>>()
-    val comicVineVolume = MutableLiveData<List<Volume>>()
+    private val comicVineIssuesMutable = MutableLiveData<List<Issues>>()
+    private val comicVineIssueMutable = MutableLiveData<List<Issue>>()
+    private val comicVineVolumesMutable = MutableLiveData<List<Volumes>>()
+    private val comicVineVolumeMutable = MutableLiveData<List<Volume>>()
 
-    private val comicVineIssuesMutable = MutableLiveData<MutableList<Issues>>()
-    private val comicVineIssueMutable = MutableLiveData<MutableList<Issue>>()
-    private val comicVineVolumesMutable = MutableLiveData<MutableList<Volumes>>()
-    private val comicVineVolumeMutable = MutableLiveData<MutableList<Volume>>()
+    val comicVineIssues : LiveData<List<Issues>> = comicVineIssuesMutable
+    val comicVineIssue : LiveData<List<Issue>> = comicVineIssueMutable
+    val comicVineVolumes : LiveData<List<Volumes>> = comicVineVolumesMutable
+    val comicVineVolume : LiveData<List<Volume>> = comicVineVolumeMutable
 
     val comicVineRetrofit = ComicVineRetrofit()
 
     private val compDisposable = CompositeDisposable()
+
+    fun onIssuesListChange(newIssues: List<Issues>){
+        comicVineIssuesMutable.value = newIssues
+    }
+
+    fun onIssueListChange(newIssue: List<Issue>){
+        comicVineIssueMutable.value = newIssue
+    }
+
+    fun onVolumesListChange(newVolumes: List<Volumes>){
+        comicVineVolumesMutable.value = newVolumes
+    }
+
+    fun onVolumeListChange(newVolume: List<Volume>){
+        comicVineVolumeMutable.value = newVolume
+    }
 
     override fun onCleared() {
         super.onCleared()
@@ -53,9 +71,10 @@ class ObjectViewModel : ViewModel() {
                     it
                 }
                 .subscribe({
-                    comicVineIssues.postValue(@Suppress("UNCHECKED_CAST") it.results as List<Issues>)
-                    comicVineIssuesMutable.postValue(@Suppress("UNCHECKED_CAST") it.results as MutableList<Issues>)
+                    //comicVineIssues.postValue(@Suppress("UNCHECKED_CAST") it.results as List<Issues>)
+                    comicVineIssuesMutable.postValue(it.results)
                     Log.d("TAG_X", "results: ${comicVineIssues}" )
+                    Log.d("TAG_X", "Mutable results: ${comicVineIssues}" )
 
                 }, {throwable ->
                     Log.d("TAG_X", "Oops: ${throwable.localizedMessage}")
@@ -73,3 +92,4 @@ class ObjectViewModel : ViewModel() {
 
     }
 }
+

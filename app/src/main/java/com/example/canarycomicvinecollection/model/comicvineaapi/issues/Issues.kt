@@ -1,8 +1,10 @@
 package com.example.canarycomicvinecollection.model.data.comicvineaapi.issues
 
-import com.example.canarycomicvinecollection.model.data.comicvineaapi.Result
+import android.os.Parcelable
 import kotlinx.android.parcel.RawValue
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class Issues(
     val aliases: @RawValue Any,
     val api_detail_url: String,
@@ -19,4 +21,4 @@ data class Issues(
     val site_detail_url: String,
     val store_date: String,
     val volume: Volume
-):Result()
+): Parcelable
